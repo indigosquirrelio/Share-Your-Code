@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+   		<link rel="stylesheet" type="text/css" href="static/style.css" />
+		<title>Share Your Code - Sign In</title>
+</head>
+<h1 class = "header">Share Your Code - Sign In</h1>
+<hr>
+<a id = "logout_link" style = "margin-right: 50px;"href="/">Home</a>
+<form method="post"> 
+<table class = "table">
+	<tr>
+		<th><label>Username</label></th>
+		<td><input type="text" name="username" value="{{username}}" id = "main" class = "textbox"></td>
+	</tr>
+	<tr>
+		<th><label>Password</label></th>
+		<td><input type="password" name="password" value="" class = "textbox"></td>
+	</tr>
+	<tr>
+		<th></th><td><div style="color: red; margin-top:5px; text-align:center;">{{error}}</div></td>
+	</tr>
+	<tr>
+		<th></th>
+		<td><input type="submit" value="Login" id = "submit" style="margin-top:3px; margin-left:25px;"></td>
+</table>
+</form>
+<div class = "different_logins">
+<h1 id = "different_logins_label">Or Login With</h1>
+{% for name, uri in providers.items() %}
+    <a href = "{{uri}}" ><img src = "../static/{{name}}.png"/></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+{% endfor %}
+ </div>
+
+<script type="text/javascript">
+    function setcursor()
+        {
+            var main = document.getElementById("main");
+            main.focus();
+            main.value=main.value;
+            document.getElementById("hidden").value=0;                    
+        }
+</script>
+
+<body onload = "setcursor()">
+</body>

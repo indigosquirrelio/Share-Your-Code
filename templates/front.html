@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+        <link rel="stylesheet" type="text/css" href="static/style.css" />
+		<title>Share Your Code</title>
+	</head>
+        
+    <body>
+        <h1 class = "header">Share Your Code</h1>
+        <hr>
+        {% if current_user %}
+          {% if not user %}
+              <a id = "logout_link" href="/logout">logout</a>
+          {% endif %}
+          {% if user %}
+          <a id = "logout_link" href="{{logout_url}}">logout</a>
+          {% endif %}
+        {% endif %}
+        {% if current_user %}
+          {% if already_submitted %}
+            {% if already_submitted == "1" %}
+            <a id = "newpost_link" href="/{{your_entry}}">View Your Entry</a><br><br><br>
+            <a id = "newpost_link" href="/group/rock paper scissors/newpost">Submit Your Second Entry</a><br><br><br>
+            {% endif %}
+            {% if already_submitted == "2" %}
+            <a id = "newpost_link" href="/{{your_entry}}">View Your Entry</a><br><br><br>
+            <a id = "newpost_link" href="/{{your_entry2}}">View Your Second Entry</a><br><br><br>
+            {% endif %}
+          {% endif %}
+          {% if not already_submitted %}
+            <a id = "newpost_link" href="/group/rock paper scissors/newpost">Submit Your Entry</a><br><br><br>
+          {% endif %}
+          <br><br>
+          {% if current_user not in admins %}
+          <h2 style="margin-left:15%; opacity:0.7;">You may edit your submission(s) any time until the deadline!</h2>
+          <h2 style="margin-left:26%; opacity:0.7;">You are limited to two submissions.</h2>
+          {% if a.code2 %}
+            <a id = "newpost_link" href="/group/rock paper scissors/newpost">Submit Your Second Entry</a><br><br><br>
+          {% endif %}
+          {% endif %}
+          {% if current_user in admins %}
+          <a id = "newpost_link" href="/download" style="margin-top:-10px;">Download All Entries</a><br><br><br>
+          <div id = "submissions">
+          {% for content in a %}
+            <br>
+            <div class = "submissions">
+            <span class="content-subject"><h1 style = "opacity: 0.7; margin-left:20px;">{% if content.title %}{{content.title}}{% endif %}{% if content.title2 %}{{content.title2}}{% endif %}</h1><span id="submitted" style="margin-left:20px;"><a class="link" href = "/{{content.key().id()}}">View Code</a> <span style="opacity:0.7;">|</span> <a class="link" href="/{{content.key().id()}}/source">View Plain Source</a> <span style="opacity:0.7;">|</span> <a class="link" href="/{{content.key().id()}}/download">Download</a> <span style="opacity:0.7;"> | </span><span style="opacity:0.7;"> Submitted on {{content.created.strftime('%a, %b-%d-%Y, %H:%M %Z UTC')}}</span><span style="opacity:0.7;"> by {{content.udacity_nickname}} ({{content.username}})</span><hr style="margin-left:20px; width:1018px;">
+            </span>
+
+            <pre style="margin-left:20px;"><code>{{content.highlight_code | safe()}}</code></pre>
+            <div style ="margin-top:-30px;"><span style="margin-left:20px;">{% if content.username == current_user %}<a href = "/{{content.key().id()}}/edit" class="link">Edit</a> | {% endif %}{% if content.last_edit %}<span style="opacity:0.7;">Last Edited: {{content.last_edit.ctime()}}{% endif %}</span>
+            </span></div><br></div><br>
+          {% endfor %}
+          <br><br>
+          </div>
+        {% endif %}
+        {% endif %}
+        {% if not current_user %}
+            <a id = "logout_link" style = "margin-right: 50px;"href="/">Home</a>
+            <a id = "signup" href = "/signup">Signup</a>
+            <a id = "login" href = "/login">Login</a>
+        <div class = "different_logins">
+        <h1 id = "different_logins_label">Or Login With</h1>
+        {% for name, uri in providers.items() %}
+            <a href = "{{uri}}" ><img src = "../static/{{name}}.png"/></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        {% endfor %}
+        </div>
+        {% endif %}
+    </body>
+</html>

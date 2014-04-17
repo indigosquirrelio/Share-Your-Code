@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+   		<link rel="stylesheet" type="text/css" href="../static/style.css" />
+		<title>Share Your Code</title>
+	</head> 
+        <body>
+        <h1 class = "header">Share Your Code</h1> 
+        <hr>
+        {% if current_user %}
+          {% if not user %}
+              <a id = "logout_link" href="/logout">logout</a>
+          {% endif %}
+          {% if user %}
+          <a id = "logout_link" href="{{logout_url}}">logout</a>
+          {% endif %}
+          <a id = "logout_link" style = "margin-right: 175px;"href="/">Home</a>
+        {% endif %}
+        <a id = "logout_link" style = "margin-right: 175px;"href="/">Home</a>
+        <form method="post">
+        <table id="table">
+            <tr>
+                <th><label>Title</label></th>
+                {% if contents.title %}<td><input type="text" name="title" value="{{contents.title}}" class = "textbox"></td>{% endif %}
+                {% if contents.title2 %}<td><input type="text" name="title" value="{{contents.title2}}" class = "textbox"></td>{% endif %}
+            </tr>
+            <tr>
+                <th><div id = "code_box"><label>Code</label></div></th>
+                {% if contents.code %}<td><textarea name="code" class="textarea">{{contents.code}}</textarea></td>{% endif %}
+                {% if contents.code2 %}<td><textarea name="code" class="textarea">{{contents.code2}}</textarea></td>{% endif %}
+            </tr>
+            <tr>
+                <th></th><td><div class="error" style = "color: red;">{{error}}</div></td>
+            </tr>
+            <tr>
+                <th></th><td><input type="submit" id ="submit" value = "Submit Changes"></td>
+            </tr>
+        </table>
+        </form>
+   
+    </body></html>

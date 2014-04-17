@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+   		<link rel="stylesheet" type="text/css" href="static/style.css" />
+		<title>Share Your Code</title>
+	</head> 
+        <body>
+        <h1 class = "header">Share Your Code</h1> 
+        <hr>
+        {% if current_user %}
+          {% if not user %}
+          <a id = "logout_link" href="/logout">logout</a>
+          {% endif %}
+          {% if user %}
+          <a id = "logout_link" href="{{logout_url}}">logout</a>
+          {% endif %}
+          <a id = "logout_link" style = "margin-right: 175px;"href="/">Home</a>
+        {% endif %}
+        {% if not current_user %}
+        <a id = "logout_link" style = "margin-right: 50px;"href="/">Home</a>
+        {% endif %}
+        {% if current_user in admins or current_user == contents.username %}
+          <div id = "submissions">
+            <br>
+            <span class="content-subject"><h1 style = "opacity: 0.7; margin-left:20px;">{{contents.title}}</h1><span id="submitted" style="margin-left:20px;"><a class="link" href="/{{contents.key().id()}}/source">View Plain Source</a> <span style="opacity:0.7;">|</span> <a class="link" href="/{{contents.key().id()}}/download">Download</a><span style="opacity:0.7;"> | </span><span style="opacity:0.7;"> Submitted on {{contents.created.strftime('%a, %b-%d-%Y, %H:%M %Z UTC')}}</span><span style="opacity:0.7;"> by {{contents.udacity_nickname}} ({{contents.username}})</span><hr style="margin-left:20px; width:1018px;">
+            </span>
+
+            <pre style="margin-left:20px;"><code>{{code | safe()}}</code></pre>
+            <div style ="margin-top:-30px;"><span style="margin-left:20px;">{% if contents.username == current_user %}<a href = "/{{contents.key().id()}}/edit" class="link">Edit</a> | {% endif %}<span style="opacity:0.7;">{% if contents.last_edit %}Last Edited: {{contents.last_edit.ctime()}}{% endif %}</span>
+            </span><br></div><br>
+        {% endif %}
+    </body></html>

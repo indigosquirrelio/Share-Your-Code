@@ -1,0 +1,14 @@
+<html>
+<body>
+<pre>
+{% if current_user in admins or current_user == contents.username %}
+{% if contents.code %}
+{{contents.code}}
+{% endif %}
+{% if not contents.code %}
+{{contents.code2}}
+{% endif %}
+{% endif %}
+</pre>
+</body>
+</html>

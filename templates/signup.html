@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="static/style.css" />
+	<title>Share Your Code</title>
+</head>
+<h1 class = "header">Share Your Code - Signup</h1>
+<hr>
+<a id = "logout_link" style = "margin-right: 50px;"href="/">Home</a>
+<form method="post"> 
+	<table class="table">
+	<tr>
+		<th><label>Username</labeL></th>
+		<td><input type="text" name="username" value="{{username}}" id="main" class = "textbox"></td>
+		<td><div style="display: inline; color: red;">{{error1}}</div></td>
+	</tr>
+	<tr>
+		<th><label>Password</label></th>
+		<td><input type="password" name="password" value="" class = "textbox"></td>
+		<td><div style="display: inline; color: red;">{{error2}}</div></td>
+	</tr>
+	<tr>
+		<th><label>Verify Password</label></th>
+		<td><input type="password" name="verify" value="" class = "textbox"></td>
+        <td><div style="display: inline; color: red;">{{error3}}</div></td>
+    </tr>
+    <tr>
+		<th><label>Email (optional)</label></th>
+		<td><input type="text" name="email" value="{{email}}" class = "textbox"></td>
+		<td><div style="display: inline; color: red;">{{error4}}</div></td>
+	</tr>
+	<tr>
+		<th>Signup</th><td><input type="submit" value = "Signup" id = "submit"></td>
+	</tr>
+	</table>
+
+</form>
+<br><br><br>
+<h2 id ="center"><label> Already have an account? <br><br><a href = "/login" id="login2">Login</a></label><h2>
+
+<script type="text/javascript">
+    function setcursor()
+        {
+            var main = document.getElementById("main");
+            main.focus();
+            main.value=main.value;
+            document.getElementById("hidden").value=0;                    
+        }
+</script>
+
+<body onload = "setcursor()">
+</body>

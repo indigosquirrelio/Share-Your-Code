@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+        <link rel="stylesheet" type="text/css" href="../../static/style.css" />
+		<title>Share Your Code</title>
+	</head
+        
+    <body>
+        <h1 class = "header">Share Your Code</h1>
+        <hr>
+        {% if current_user %}
+          {% if not user %}
+              <a id = "logout_link" href="/logout">logout</a>
+          {% endif %}
+          {% if user %}
+          <a id = "logout_link" href="{{logout_url}}">logout</a>
+          {% endif %}
+          <a id = "logout_link" style = "margin-right: 175px;"href="/">Home</a>
+        {% endif %}
+        <a id = "logout_link" style = "margin-right: 175px;"href="/">Home</a>
+        <form method="post">
+        <table id="table">
+            <tr>
+                <th><label>Title</label></th>
+                <td><input type="text" name="title" value="{{title}}" class = "textbox"></td>
+            </tr>
+            {% if rps %}
+            <tr>
+                <th><label>Udacity Nickname</th>
+                <td><input type="text" name = "udacity_nickname" value = "{{udacity_nickname}}" class = "textbox"></td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th><div id = "code_box"><label>Code</label></div></th>
+                <td><textarea name="code" class="textarea">{{code}}</textarea></td>
+            </tr>
+            <tr>
+                <th></th><td><div class="error" style = "color: red;">{{error | safe()}}</div></td>
+            </tr>
+            <tr>
+                <th></th><td><input type="submit" id ="submit" value = "Submit"></td>
+            </tr>
+        </table>
+        </form>
+    </body>
+</html>
+        {% for code in contents %}
+        <div class="code">
+            <div class="code-title">{{code.title}}</div>
+            <pre class="code-body">{{code.code}}</pre>
+        </div>
+        {% endfor %}
